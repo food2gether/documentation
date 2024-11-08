@@ -1,8 +1,20 @@
+# Schnittstellen Spezifikation
+
 # Frontend
  - IndexJSX
  - Robin macht das schon :)
 
 # Backend
+
+## Authentication-Service
+
+### POST `/`
+
+#### Headers
+
+#### Parameters
+
+#### Response
  - Login/Auth Service
     -  POST `/` -> POST https://food2gether.com/api/login
        Parameter: name: String, password: String
