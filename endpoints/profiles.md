@@ -1,6 +1,6 @@
 # Profiles Service
 
-## GET `/profiles/`
+## GET `/api/v1/profiles/`
 
 Returns a list of all profiles.
 
@@ -17,10 +17,10 @@ _None_
 
 ### Example Request
 ```shell
-curl --request GET https://food2gether.com/api/profiles/
+curl --request GET https://food2gether.com/api/v1/profiles/
 ```
 
-## GET `/profiles/:id`
+## GET `/api/v1/profiles/:id`
 
 Returns the profile with the given ID/username.
 
@@ -40,10 +40,10 @@ _None_
 
 ### Example Request
 ```shell
-curl --request GET https://food2gether.com/api/accounts/1731095302112
+curl --request GET https://food2gether.com/api/v1/accounts/1731095302112
 ```
 
-## PUT `/accounts/`
+## PUT `/api/v1/accounts/`
 
 Creates a new profile.
 
@@ -70,7 +70,7 @@ Creates a new profile.
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/accounts/ \
+curl --request PUT https://food2gether.com/api/v1/accounts/ \
      --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
      --header 'Content-Type: application/json' \
      --data @- << EOF
@@ -87,7 +87,7 @@ curl --request PUT https://food2gether.com/api/accounts/ \
 EOF
 ```
 
-## POST `/accounts/:id/`
+## POST `/api/v1/accounts/:id/`
 
 Updates profile information.
 
@@ -112,7 +112,7 @@ Updates profile information.
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/accounts/ \
+curl --request PUT https://food2gether.com/api/v1/accounts/ \
      --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
      --header 'Content-Type: application/json' \
      --data @- << EOF
@@ -128,7 +128,7 @@ curl --request PUT https://food2gether.com/api/accounts/ \
 EOF
 ```
 
-## DELETE `/accounts/:id/`
+## DELETE `/api/v1/accounts/:id/`
 
 Deletes a profile.
 
@@ -150,6 +150,6 @@ Deletes a profile.
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/accounts/ \
+curl --request PUT https://food2gether.com/api/v1/accounts/ \
      --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
 ```
