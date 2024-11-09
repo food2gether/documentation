@@ -2,7 +2,7 @@
 
 Creates a new user account.
 
-## PUT `/authentication/`
+## PUT `/api/v1/authentication/`
 
 ### Headers
 _None_
@@ -12,7 +12,6 @@ _None_
 |------------|----------|----------|-----------------------------------------------|
 | `email`    | `String` | `true`   | The email of the user to be authenticated.    |
 | `password` | `String` | `true`   | The password of the user to be authenticated. |
-| `email`    | `String` | `true`   | The email of the user to be authenticated.    |
 
 ### Response
 | Status Code | Description               | Example Response Body                                                                                                                       |
@@ -22,18 +21,17 @@ _None_
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/authentication/ \
+curl --request PUT https://food2gether.com/api/v1/authentication/ \
      --header 'Content-Type: application/json' \
      --data @- << EOF
 {
-    "username": "username",
     "password": "password",
     "email": "user@example.com"
 }
 EOF
 ```
 
-## POST `/authentication/`
+## POST `/api/v1/authentication/`
 
 Login with an existing user account.
 
@@ -53,12 +51,11 @@ _None_
 
 ### Example Request
 ```shell
-curl --request POST https://food2gether.com/api/authentication/ \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
-     --header 'Content-Type: application/json'
+curl --request POST https://food2gether.com/api/v1/authentication/ \
+     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK'
 ```
 
-## DELETE `/authentication/`
+## DELETE `/api/v1/authentication/`
 
 Logout with an existing user account.
 
@@ -78,7 +75,58 @@ _None_
 
 ### Example Request
 ```shell
-curl --request POST https://food2gether.com/api/authentication/ \
+curl --request DELETE https://food2gether.com/api/v1/authentication/ \
+     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK'
+```
+
+## PUT `/api/v1/authentication/reset/`
+
+Requests a password reset for an existing user account.
+
+### Headers
+_None_
+
+### Parameters
+| Key     | Type     | Required | Description                                      |
+|---------|----------|----------|--------------------------------------------------|
+| `email` | `String` | `true`   | The email of the user to reset the password for. |
+
+### Response
+| Status Code | Description      | Example Response Body                                                                                                                    |
+|-------------|------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| 200         | Request received | <pre lang="json">{<br>  "success": true,<br>  "data": null<br>}</pre>                                                                    |
+| 404         | Not found        | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "account.notfound"<br>  }<br>}</pre> |
+
+### Example Request
+```shell
+curl --request PUT https://food2gether.com/api/v1/authentication/reset \
      --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
-     --header 'Content-Type: application/json'
+     --form 'email=max.mustermann@gmail.com'
+```
+
+## POST `/api/v1/authentication/reset/`
+
+Resets a password for an existing user account.
+
+### Headers
+| Key             | Description                      |
+|-----------------|----------------------------------|
+| `Authorization` | `Bearer <reset_token>`           |
+
+### Parameters
+| Key        | Type     | Required | Description      |
+|------------|----------|----------|------------------|
+| `password` | `String` | `true`   | The new password |
+
+### Response
+| Status Code | Description   | Example Response Body                                                                                                                 |
+|-------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| 200         | Successful    | <pre lang="json">{<br>  "success": true,<br>  "data": null<br>}</pre>                                                                 |
+| 400         | Invalid token | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 400,<br>    "message_key": "token.invalid"<br>  }<br>}</pre> |
+
+### Example Request
+```shell
+curl --request PUT https://food2gether.com/api/v1/authentication/ \
+     --header 'Authorization: Bearer dXNlcm5hbWU6cGFzc3456ujhgfd3545dvcmQK'
+     --form 'password=newpassword'
 ```

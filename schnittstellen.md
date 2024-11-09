@@ -15,10 +15,6 @@
 #### Parameters
 
 #### Response
- - Account Service
-   -   :/create
-   -   :/edit
-   -   :/delete
  - Session Service (Order eigener Service??)
    -   GET `/:sessionId`
    -   PUT `/:sessionId`
