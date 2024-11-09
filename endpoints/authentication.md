@@ -126,7 +126,7 @@ Resets a password for an existing user account.
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/v1/authentication/ \
-     --header 'Authorization: Bearer dXNlcm5hbWU6cGFzc3456ujhgfd3545dvcmQK'
+curl --request POST https://food2gether.com/api/v1/authentication/ \
+     --header 'Authorization: Bearer dXNlcm5hbWU6cGFzc3456ujhgfd3545dvcmQK' \
      --form 'password=newpassword'
 ```

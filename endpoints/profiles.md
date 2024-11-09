@@ -47,7 +47,7 @@ curl --request GET https://food2gether.com/api/v1/accounts/1731095302112
 
 ## PUT `/api/v1/accounts/`
 
-Creates a new profile.
+Creates/Updates a profile.
 
 ### Headers
 | Key             | Description                        |
@@ -56,16 +56,21 @@ Creates a new profile.
 | `Content-Type`  | `application/json`                 |
 
 ### Parameters
+When `id` is not provided, a new profile is created. When `id` is provided, the profile with the given ID is updated. \
+The `name` field is ignored when updating a profile.
+
 | Key           | Type                                          | Required | Description                                |
 |---------------|-----------------------------------------------|----------|--------------------------------------------|
-| `name`        | `String`                                      | `true`   | A unique username                          |
-| `displayname` | `String`                                      | `true`   | The display name of the user               |
-| `contact`     | `Array<{displayname: String, value: String}>` | `true`   | An array of contact information            |
+| `id`          | `int`/`String`                                | `false`  | The ID/username of the profile to update   |
+| `name`        | `String`                                      | `false`  | A unique username                          |
+| `displayname` | `String`                                      | `false`  | The display name of the user               |
+| `contact`     | `Array<{displayname: String, value: String}>` | `false`  | An array of contact information            |
 
 ### Response
 | Status Code | Description                             | Example Response Body                                                                                                                        |
 |-------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| 201         | Account found                           | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731095302112,<br/>  }<br>}</pre>                                       |
+| 200         | Updated                                 | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731095302112,<br/>  }<br>}</pre>                                       |
+| 201         | Created                                 | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731095302112,<br/>  }<br>}</pre>                                       |
 | 401         | Unauthorized                            | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authorization.failed"<br>  }<br>}</pre> |
 | 403         | Username already exists                 | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 403,<br>    "message_key": "account.exists"<br>  }<br>}</pre>       |
 | 409         | Profile already associated with account | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 409,<br>    "message_key": "account.exists"<br>  }<br>}</pre>       |
@@ -78,47 +83,6 @@ curl --request PUT https://food2gether.com/api/v1/accounts/ \
      --data @- << EOF
 {
   "name": "max_mustermann",
-  "displayname": "Max Mustermann",
-  "contact": [
-    {
-      "displayname": "MS Teams",
-      "value": "mamu"
-    }
-  ]
-}
-EOF
-```
-
-## POST `/api/v1/accounts/:id/`
-
-Updates profile information.
-
-### Headers
-| Key             | Description                        |
-|-----------------|------------------------------------|
-| `Authorization` | `Basic <email:password \| base64>` |
-| `Content-Type`  | `application/json`                 |
-
-### Parameters
-| Key           | Type                                          | Required | Description                              |
-|---------------|-----------------------------------------------|----------|------------------------------------------|
-| `id`          | `int`/`String`                                | `true`   | The ID/username of the profile to update |
-| `displayname` | `String`                                      | `false`  | The display name of the user             |
-| `contact`     | `Array<{displayname: String, value: String}>` | `false`  | An array of contact information          |
-
-### Response
-| Status Code | Description  | Example Response Body                                                                                                                        |
-|-------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Updated      | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731095302112,<br/>  }<br>}</pre>                                       |
-| 401         | Unauthorized | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authorization.failed"<br>  }<br>}</pre> |
-
-### Example Request
-```shell
-curl --request PUT https://food2gether.com/api/v1/accounts/ \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
-     --header 'Content-Type: application/json' \
-     --data @- << EOF
-{
   "displayname": "Max Mustermann",
   "contact": [
     {
