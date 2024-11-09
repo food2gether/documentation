@@ -8,7 +8,9 @@ Returns a list of all profiles.
 _None_
 
 ### Parameters
-_None_
+| Key    | Type     | Required | Description             |
+|--------|----------|----------|-------------------------|
+| search | `String` | `false`  | The search query string |
 
 ### Response
 | Status Code | Description   | Example Response Body                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -33,10 +35,10 @@ _None_
 | `id` | `int`/`String` | `true`   | The ID of the profile to get |
 
 ### Response
-| Status Code | Description                        | Example Response Body                                                                                                                                                                                                                                                                                                                                                                                                      |
-|-------------|------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Account found                      | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731095302112,<br>    "name": "max_mustermann",<br>    "displayname": "Max Mustermann",<br>    "contact": \[<br>      {<br>        "displayname": "E-Mail",<br>        "value": "max.mustermann@example.com"<br/>      },<br>      {<br>        "displayname": "Phone",<br>        "value": "+49 1568 483234"<br/>      }<br>    ]<br/>  }<br>}</pre> |
-| 404         | Login failed (Invalid credentials) | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "account.notfound"<br>  }<br>}</pre>                                                                                                                                                                                                                                                                                   |
+| Status Code | Description   | Example Response Body                                                                                                                                                                                                                                                                                                                                                                                                      |
+|-------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 200         | Account found | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731095302112,<br>    "name": "max_mustermann",<br>    "displayname": "Max Mustermann",<br>    "contact": \[<br>      {<br>        "displayname": "E-Mail",<br>        "value": "max.mustermann@example.com"<br/>      },<br>      {<br>        "displayname": "Phone",<br>        "value": "+49 1568 483234"<br/>      }<br>    ]<br/>  }<br>}</pre> |
+| 404         | Not found     | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "account.notfound"<br>  }<br>}</pre>                                                                                                                                                                                                                                                                                   |
 
 ### Example Request
 ```shell
