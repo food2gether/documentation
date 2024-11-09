@@ -15,15 +15,10 @@
 #### Parameters
 
 #### Response
- - Login/Auth Service
-    -  POST `/` -> POST https://food2gether.com/api/login
-       Parameter: name: String, password: String
-       Return: success: boolean, token: String
  - Account Service
    -   :/create
    -   :/edit
    -   :/delete
-   -   :/get (search)
  - Session Service (Order eigener Service??)
    -   GET `/:sessionId`
    -   PUT `/:sessionId`
