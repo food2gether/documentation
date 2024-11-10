@@ -1,90 +1,101 @@
 # Food2gether
-Ein Gruppenbestellsystem, um die gemeinsame Bestellung in einer größeren Gruppe zu vereinfachen
+*A collaborative ordering system designed to simplify group orders for large teams.*
 
-## Mitglieder
-**Marvin:** Backend und Orga
-**Nikolas:** Backend
-**Kaan:** Backend
-**Robin:** Frontend
-**Jo:** Wildcard
+---
 
-## Librarys und so
-* OpenStreetMap / Leaflet
-* PayPal
-* Quarkus & Quarkus Web/REST
-* Keycloak
+## Team Members
 
+- **Marvin**: Backend Development, Organization
+- **Nikolas**: Backend Development
+- **Kaan**: Backend Development
+- **Robin**: Frontend Development
+- **Jo**: Wildcard (Flexible Role)
 
-## Links
-- [Quarkus OpenConnect](https://quarkus.io/guides/security-openid-connect-providers#google)
-- Andreas E-Mail: andreas.trautwein@soptim.de
-- 
+---
 
-## Rollen
-* Mitbestellende
-* Organisierende 
-* (Admin)
+## Libraries and Tools
 
-## Erwartungen
-* Loginfenster
-* Sitzungen
-    * erstellen
-    * bearbeiten
-    * schliessen
-    * beitreten
-    * Übersicht aller Bestellungen
-    * Übersicht eigner Bestellung
-    * (Trinkgeld option)
-    * Wer bezahlt?
-    * Deadline
-    * (private Sitzung)
-* Restaurantes
-    * Auflistung
-    * Speisekarte
-        * bearbeiten
-        * (Computer vision speisekarte analysieren)
-    * Location/Karte einbinden
-    * (Benachrichtiugnen)
-        * Essen is da
-        * Nicht bezahlt
-        * Deadline abgelaufen
-        * 
-* Bestellung
-    * aufgeben -> sitzung beigereten
-    * bearbeiten
-    * entfernen
-    * Overview
-* Bezahlen
-    * PayPal-Anbindung/QR-Code (aussicht)
-    * Rechnung??
-    * Bestatigungsfunktion
-    * [Paypal.me-link](https://www.paypal.com/us/cshelp/article/paypalme-frequently-asked-questions-help432)
-* (Demokratische Sitzung)
-    * Abstimmung
-    * Vorschläge
-* Webapp(/mobile app??)
+- **OpenStreetMap / Leaflet**: For map integration
+    - [Leaflet Tutorials](https://leafletjs.com/examples.html)
+- **PayPal**: For payment processing
+    - [PayPal Developer](https://developer.paypal.com/home/)
+    - [PayPal REST API](https://developer.paypal.com/api/rest/)
+- **Quarkus & Quarkus Web/REST**: For backend framework
+    - [Quarkus OpenConnect Documentation](https://quarkus.io/guides/security-openid-connect-providers#google)
+- **Keycloak**: For authentication and authorization
 
+---
 
-## Gregs Tagebuch :)
-#### 29.10.
-* Weiter Überlegungen zum Aufbau der Applikation
-* MVP Usecase-Diagramm
+## Roles
 
-![Usecase diragram](https://cdn-0.plantuml.com/plantuml/png/VP71JiCm38RlUOfezuqxggeDk8108FO4RkkraT9KYfqXfhqB5vw14xU-6CoBfqgRTdFyVqwS_ryIG-JKUsEWvY7Qny0OaSXXPBH0rcNXnN65nEWzXaQKFYkliONW3XEg3COamXe8xMpjU9T2Qp7cuTc1eFk8m7YEKTrvX-FNYVC3NS0gT1oHbNeQN3Y7jXWz42dqZB35oMQhn9qey5zC-dV7RnwVsK6dEmzly7cHWhHfiL9gdQhUyKNGZpzKTme-e4UUBlIEn90Y1BQT2xkq6NzR33UGw6FyFgqHLqspHeyr6pFO-RwqlUbjiPzRPqpsrHQBXNpBtjgYSA7sgS6oD6Bd5VNQiBmsBpKwfQKtsKaXoSsuuqdo6UHYgRKlaQYGy-b54hDpcHqLJ4-ggObB34tgFVy1)
+- **Participants** – Users who join sessions and place orders
+- **Interested** - Users who join sessions without placing an order
+- **Organizers** – Users who manage sessions and orders
+- **Admin** – (Optional) Advanced management capabilities
 
-#### 04.11.24
-* erstes Treffen mit PO
-* Vorstellung unserer Vorstellungen
-* Überlegungen zum MVP:
-    * Sitzung erstellen
-    * auth
-        * google gh fb apple usw
-        * CLassisch email:password
-        * keycloak?
-    * beitreten über bestellen
-        * Textfeld name, kontakt, essen, betrag
-    * Sitzung
-        * Zahlungszustand
-        * Übersicht
-        * einfrieren/deadline
-        * 
+---
+
+## Feature Requirements
+
+### Authentication
+
+- **Login Screen**
+  - Login options: Google, GitHub, Facebook, Apple, classic email/password
+  - Keycloak integration for identity management
+
+### Ordering Sessions
+
+- **Session Management**
+  - Create, edit, close, and join sessions
+  - View all orders in a session
+  - View individual orders
+  - Assign payment responsibilities
+  - Set a deadline for orders
+  - Optional: Tips feature
+  - Optional: Private sessions (invite-only)
+
+### Restaurants
+
+- **Restaurant Listings and Menus**
+  - Add, edit, and display restaurant menus
+  - Optional: Use computer vision for menu recognition
+- **Location and Map Integration**
+  - Embed maps with restaurant locations
+- **Notifications** (Optional)
+  - Order arrival notification
+  - Unpaid order reminder
+  - Deadline reminder
+
+### Ordering
+
+- **Order Management**
+  - Place orders within a session
+  - Edit and remove orders
+  - Overview of current orders
+
+### Payment
+
+- **Payment Options**
+  - PayPal integration, QR code for easy access
+  - Optional: Direct link to PayPal.me
+- **Payment Confirmation**
+  - Track and confirm payment status
+
+### Democratic Sessions (Optional)
+
+- **Voting and Suggestions**
+  - Vote on session-specific decisions
+  - Propose suggestions within sessions
+
+### Platform
+
+- **Web Application**
+  - (Potentially consider a mobile app in the future)
+
+---
+
+### Usefull Links
+
+- https://www.youtube.com/watch?v=lsMQRaeKNDk
+- https://www.youtube.com/watch?v=CdBtNQZH8a4
+
