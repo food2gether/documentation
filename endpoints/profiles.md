@@ -56,7 +56,7 @@ Creates/Updates a profile.
 | `Content-Type`  | `application/json`                 |
 
 ### Parameters
-When `id` is not provided, a new profile is created. When `id` is provided, the profile with the given ID is updated. \
+When `id` is omitted, a new profile is created. In this case all other arguments are required. When `id` is provided, the profile with the given ID is updated. \
 The `name` field is ignored when updating a profile.
 
 | Key           | Type                                          | Required | Description                                |
@@ -67,13 +67,14 @@ The `name` field is ignored when updating a profile.
 | `contact`     | `Array<{displayname: String, value: String}>` | `false`  | An array of contact information            |
 
 ### Response
-| Status Code | Description                             | Example Response Body                                                                                                                        |
-|-------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Updated                                 | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731095302112,<br/>  }<br>}</pre>                                       |
-| 201         | Created                                 | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731095302112,<br/>  }<br>}</pre>                                       |
-| 401         | Unauthorized                            | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authorization.failed"<br>  }<br>}</pre> |
-| 403         | Username already exists                 | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 403,<br>    "message_key": "account.exists"<br>  }<br>}</pre>       |
-| 409         | Profile already associated with account | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 409,<br>    "message_key": "account.exists"<br>  }<br>}</pre>       |
+| Status Code | Description                             | Example Response Body                                                                                                                            |
+|-------------|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| 200         | Updated                                 | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731095302112,<br/>  }<br>}</pre>                                           |
+| 201         | Created                                 | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731095302112,<br/>  }<br>}</pre>                                           |
+| 400         | Missing arguments                       | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 400,<br>    "message_key": "request.missingarguments"<br>  }<br>}</pre> |
+| 401         | Unauthorized                            | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authorization.failed"<br>  }<br>}</pre>     |
+| 403         | Username already exists                 | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 403,<br>    "message_key": "user.exists"<br>  }<br>}</pre>              |
+| 409         | Profile already associated with account | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 409,<br>    "message_key": "account.exists"<br>  }<br>}</pre>           |
 
 ### Example Request
 ```shell

@@ -11,7 +11,7 @@ Creates/Updates a restaurant.
 | `Content-Type`  | `application/json`                 |
 
 ### Parameters
-When `id` is not provided, a new restaurant is created. When `id` is provided, the restaurant with the given ID is updated.
+When `id` is omitted, a new restaurant is created. In this case all other arguments are required. When `id` is provided, the restaurant with the given ID is updated.
 
 | Key           | Type                                                         | Required | Description                        |
 |---------------|--------------------------------------------------------------|----------|------------------------------------|
@@ -20,11 +20,12 @@ When `id` is not provided, a new restaurant is created. When `id` is provided, t
 | `address`     | `{street: String, number: int, city: String, postcode: int}` | `false`  | The address of the restaurant      |
 
 ### Response
-| Status Code | Description  | Example Response Body                                                                                                                        |
-|-------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Updated      | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731155346<br>  }<br>}</pre>                                            |
-| 201         | Created      | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731155346<br>  }<br>}</pre>                                            |
-| 401         | Unauthorized | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authorization.failed"<br>  }<br>}</pre> |
+| Status Code | Description       | Example Response Body                                                                                                                            |
+|-------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| 200         | Updated           | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731155346<br>  }<br>}</pre>                                                |
+| 201         | Created           | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731155346<br>  }<br>}</pre>                                                |
+| 400         | Missing arguments | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "request.missingarguments"<br>  }<br>}</pre> |
+| 401         | Unauthorized      | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authorization.failed"<br>  }<br>}</pre>     |
 
 ### Example Request
 ```shell
@@ -113,7 +114,7 @@ Deletes a specific restaurant.
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/v1/restaurantes/1731155346 \
+curl --request DELETE https://food2gether.com/api/v1/restaurantes/1731155346 \
      --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK'
 ```
 
@@ -149,13 +150,19 @@ curl --request PUT https://food2gether.com/api/v1/restaurantes/1731155346/menu \
      --header 'Content-Type: application/json' \
      --data @- << EOF
 {
-  "displayname": "Restaurant",
-  "address": {
-    "street": "Musterstraße", 
-    "number": 42, 
-    "city": "Musterstadt", 
-    "postalcode": 12345
-  }
+  "entries": [
+    {
+      "id": "1",
+      "name": "Springrolles",
+      "description": "Asian fried vegetable rolls",
+      "price": 349,
+      "allergies": [
+        "VEGETARIAN",
+        "VEGAN",
+        "PEANUTS"
+      ]
+    }
+  ]
 }
 EOF
 ```
