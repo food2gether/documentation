@@ -20,12 +20,76 @@ When `id` is omitted, a new restaurant is created. In this case all other argume
 | `address`     | `{street: String, number: int, city: String, postcode: int}` | `false`  | The address of the restaurant      |
 
 ### Response
-| Status Code | Description       | Example Response Body                                                                                                                            |
-|-------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Updated           | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731155346<br>  }<br>}</pre>                                                |
-| 201         | Created           | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731155346<br>  }<br>}</pre>                                                |
-| 400         | Missing arguments | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "request.missingarguments"<br>  }<br>}</pre> |
-| 401         | Unauthorized      | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authorization.failed"<br>  }<br>}</pre>     |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Updated</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": {
+    "id": 1731155346
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td>Created</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": {
+    "id": 1731155346
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>400</td>
+      <td>Missing arguments</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 404,
+    "message_key": "request.missingarguments"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>401</td>
+      <td>Unauthorized</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 401,
+    "message_key": "authorization.failed"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
 ### Example Request
 ```shell
@@ -58,9 +122,41 @@ _None_
 | `search` | `String` | `false`  | Query for searching restaurants |
 
 ### Response
-| Status Code | Description | Example Response Body                                                                                                                                                                                                                                                                                                        |
-|-------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Found       | <pre lang="json">{<br>  "success": true,<br>  "data": \[<br>    {<br>      "id": 1731155346,<br>      "displayname": "Fat Baby",<br/>      "address": {<br/>        "street": Musterstr.",<br>        "number": 42,<br>        "city": "Aachen",<br>        "postalcode": 52072<br>      },<br/>      ...<br/>  ]<br>}</pre> |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1731155346,
+      "displayname": "Fat Baby",
+      "address": {
+        "street": "Musterstr.",
+        "number": 42,
+        "city": "Aachen",
+        "postalcode": 52072
+      }
+    },
+    ...
+  ]
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Request
 ```shell
@@ -81,10 +177,53 @@ _None_
 | `id` | `int` | `true`   | The id of the restaurant |
 
 ### Response
-| Status Code | Description | Example Response Body                                                                                                                                                                                                                                                              |
-|-------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Found       | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731155346,<br>    "displayname": "Fat Baby",<br/>    "address": {<br/>      "street": Musterstr.",<br>      "number": 42,<br>      "city": "Aachen",<br>      "postalcode": 52072<br>    }<br>  }<br>}</pre> |
-| 404         | Not found   | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "restaurant.notfound"<br>  }<br>}</pre>                                                                                                                                        |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": {
+    "id": 1731155346,
+    "displayname": "Fat Baby",
+    "address": {
+      "street": "Musterstr.",
+      "number": 42,
+      "city": "Aachen",
+      "postalcode": 52072
+    }
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 404,
+    "message_key": "restaurant.notfound"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Request
 ```shell
@@ -107,10 +246,44 @@ Deletes a specific restaurant.
 | `id` | `int` | `true`   | The id of the restaurant |
 
 ### Response
-| Status Code | Description | Example Response Body                                                                                                                       |
-|-------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Ok          | <pre lang="json">{<br>  "success": true,<br>  "data": null<br>}</pre>                                                                       |
-| 404         | Not found   | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "restaurant.notfound"<br>  }<br>}</pre> |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Ok</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": null
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 404,
+    "message_key": "restaurant.notfound"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Request
 ```shell
@@ -137,11 +310,59 @@ Updates the menu of an existing restaurant.
 | `entries` | `Array<{id: String, name: String, description: String, price: int, allergies: Array<Allergy>}>` | `false`  | The menu entries related to this restaurant |
 
 ### Response
-| Status Code | Description          | Example Response Body                                                                                                                        |
-|-------------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Updated              | <pre lang="json">{<br>  "success": true,<br>  "data": null<br>}</pre>                                                                        |
-| 401         | Unauthorized         | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authorization.failed"<br>  }<br>}</pre> |
-| 404         | Restaurant not found | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "menu.notfound"<br>  }<br>}</pre>        |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Updated</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": null
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>401</td>
+      <td>Unauthorized</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 401,
+    "message_key": "authorization.failed"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Restaurant not found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 404,
+    "message_key": "menu.notfound"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Request
 ```shell
@@ -180,10 +401,58 @@ _None_
 | `id` | `int` | `true`   | The id of the restaurant |
 
 ### Response
-| Status Code | Description          | Example Response Body                                                                                                                                                                                                                                                                                                                                          |
-|-------------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Found                | <pre lang="json">{<br>  "success": true,<br>  "data": \[<br/>    {<br/>      "id": "1",<br/>      "name": "Springrolles",<br/>      "description": "Asian fried vegetable rolls",<br/>      "price": 349,<br/>      "allergies": \[<br/>        "VEGETARIAN",<br/>        "VEGAN",<br/>        "PEANUTS"<br/>      ]<br/>    },<br/>    ...<br/>  ]<br>}</pre> |
-| 404         | Restaurant not found | <pre lang="json">{<br/>  "success": false,<br/>  "error": {<br/>    "code": 404,<br/>    "message_key": "restaurant.notfound"<br/>  }<br/>}</pre>                                                                                                                                                                                                              |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": [
+    {
+      "id": "1",
+      "name": "Springrolles",
+      "description": "Asian fried vegetable rolls",
+      "price": 349,
+      "allergies": [
+        "VEGETARIAN",
+        "VEGAN",
+        "PEANUTS"
+      ]
+    },
+    ...
+  ]
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Restaurant not found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 404,
+    "message_key": "restaurant.notfound"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+                                                                                           |
 
 ### Example Request
 ```shell
