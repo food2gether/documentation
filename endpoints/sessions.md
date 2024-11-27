@@ -21,12 +21,75 @@ When `id` is omitted, a new session is created. In this case all other arguments
 | `deadline`      | `Date` | `false`  | The deadline for the orders                    |
 
 ### Response
-| Status Code | Description  | Example Response Body                                                                                                                        |
-|-------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Updated      | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731155346<br>  }<br>}</pre>                                            |
-| 201         | Created      | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "id": 1731155346<br>  }<br>}</pre>                                            |
-| 400         | Bad Request  | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 400,<br>    "message_key": "request.invalid<br>  }<br>}</pre>       |
-| 401         | Unauthorized | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authorization.failed"<br>  }<br>}</pre> |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Updated</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": {
+    "id": 1731155346
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td>Created</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": {
+    "id": 1731155346
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>400</td>
+      <td>Bad Request</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 400,
+    "message_key": "request.invalid"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>401</td>
+      <td>Unauthorized</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 401,
+    "message_key": "authorization.failed"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Request
 ```shell
@@ -56,9 +119,36 @@ _None_
 | `orderable`     | `boolean` | `false`  | Filter for running sessions      |
 
 ### Response
-| Status Code | Description | Example Response Body                                                                                                                                                                                                     |
-|-------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Ok          | <pre lang="json">{<br>  "success": true,<br>  "data": \[<br/>    {<br/>      "restaurant_id": 1,<br/>      "organizer_id": 1,<br/>      "deadline": "2024-11-10T00:25:08.337Z",<br/>    },<br/>    ...<br/>  ]<br>}</pre> |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Ok</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": [
+    {
+      "restaurant_id": 1,
+      "organizer_id": 1,
+      "deadline": "2024-11-10T00:25:08.337Z"
+    },
+    ...
+  ]
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Request
 ```shell
@@ -78,10 +168,48 @@ _None_
 | `id` | `int` | `true`   | The session id |
 
 ### Response
-| Status Code | Description | Example Response Body                                                                                                                                                             |
-|-------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Ok          | <pre lang="json">{<br>  "success": true,<br>  "data": {<br/>    "restaurant_id": 1,<br/>    "organizer_id": 1,<br/>    "deadline": "2024-11-10T00:25:08.337Z",<br/>  }<br>}</pre> |
-| 404         | Not Found   | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "session.not_found"<br>  }<br>}</pre>                                         |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Ok</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": {
+    "restaurant_id": 1,
+    "organizer_id": 1,
+    "deadline": "2024-11-10T00:25:08.337Z"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not Found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 404,
+    "message_key": "session.not_found"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Request
 ```shell
@@ -103,11 +231,63 @@ Removes a session by its ID.
 | `id` | `int` | `true`   | The session id |
 
 ### Response
-| Status Code | Description  | Example Response Body                                                                                                                                                             |
-|-------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Ok           | <pre lang="json">{<br>  "success": true,<br>  "data": {<br/>    "restaurant_id": 1,<br/>    "organizer_id": 1,<br/>    "deadline": "2024-11-10T00:25:08.337Z",<br/>  }<br>}</pre> |
-| 401         | Unauthorized | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authorization.failed"<br>  }<br>}</pre>                                      |
-| 404         | Not Found    | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "session.not_found"<br>  }<br>}</pre>                                         |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Ok</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": {
+    "restaurant_id": 1,
+    "organizer_id": 1,
+    "deadline": "2024-11-10T00:25:08.337Z"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>401</td>
+      <td>Unauthorized</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 401,
+    "message_key": "authorization.failed"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not Found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 404,
+    "message_key": "session.not_found"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Request
 ```shell
