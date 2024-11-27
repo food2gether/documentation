@@ -36,6 +36,5 @@
 ---
 
 ### Usefull Links
-
-- https://www.youtube.com/watch?v=lsMQRaeKNDk
-- https://www.youtube.com/watch?v=CdBtNQZH8a4
+- [What's REST](https://www.youtube.com/watch?v=lsMQRaeKNDk)
+- [What's a Mircoservice](https://www.youtube.com/watch?v=CdBtNQZH8a4)
