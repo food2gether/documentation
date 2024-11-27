@@ -14,10 +14,47 @@ _None_
 | `password` | `String` | `true`   | The password of the user to be authenticated. |
 
 ### Response
-| Status Code | Description               | Example Response Body                                                                                                                       |
-|-------------|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| 201         | User created successfully | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "token": "&lt;session_token&gt;"<br>  }<br>}</pre>                           |
-| 409         | User already exists       | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 409,<br>    "message_key": "registration.failed"<br>  }<br>}</pre> |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>201</td>
+      <td>User created successfully</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": {
+    "token": "&lt;session_token&gt;"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>409</td>
+      <td>User already exists</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 409,
+    "message_key": "registration.failed"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
 ### Example Request
 ```shell
@@ -44,10 +81,47 @@ Login with an existing user account.
 _None_
 
 ### Response
-| Status Code | Description                        | Example Response Body                                                                                                                         |
-|-------------|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Login succeeded                    | <pre lang="json">{<br>  "success": true,<br>  "data": {<br>    "token": "&lt;session_token&gt;"<br>  }<br>}</pre>                             |
-| 401         | Login failed (Invalid credentials) | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authentication.failed"<br>  }<br>}</pre> |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Login succeeded</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": {
+    "token": "&lt;session_token&gt;"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>401</td>
+      <td>Login failed (Invalid credentials)</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 401,
+    "message_key": "authentication.failed"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
 ### Example Request
 ```shell
@@ -68,10 +142,44 @@ Logout with an existing user account.
 _None_
 
 ### Response
-| Status Code | Description             | Example Response Body                                                                                                                         |
-|-------------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Successfully logged out | <pre lang="json">{<br>  "success": true,<br>  "data": null<br>}</pre>                                                                         |
-| 401         | Unauthorized            | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 401,<br>    "message_key": "authentication.failed"<br>  }<br>}</pre> |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Successfully logged out</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": null
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>401</td>
+      <td>Unauthorized</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 401,
+    "message_key": "authentication.failed"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Request
 ```shell
@@ -92,10 +200,45 @@ _None_
 | `email` | `String` | `true`   | The email of the user to reset the password for. |
 
 ### Response
-| Status Code | Description      | Example Response Body                                                                                                                    |
-|-------------|------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Request received | <pre lang="json">{<br>  "success": true,<br>  "data": null<br>}</pre>                                                                    |
-| 404         | Not found        | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 404,<br>    "message_key": "account.notfound"<br>  }<br>}</pre> |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Request received</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": null
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 404,
+    "message_key": "account.notfound"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
 ### Example Request
 ```shell
@@ -123,6 +266,44 @@ Resets a password for an existing user account.
 |-------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | 200         | Successful    | <pre lang="json">{<br>  "success": true,<br>  "data": null<br>}</pre>                                                                 |
 | 400         | Invalid token | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 400,<br>    "message_key": "token.invalid"<br>  }<br>}</pre> |
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Successful</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "data": null
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "error": {
+    "code": 400,
+    "message_key": "token.invalid"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Request
 ```shell
