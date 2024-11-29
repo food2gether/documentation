@@ -314,7 +314,6 @@ order with the given ID is updated.
 | Key          | Type                                                                                            | Required | Description                            |
 |--------------|-------------------------------------------------------------------------------------------------|----------|----------------------------------------|
 | `id`         | `int`                                                                                           | `false`  | The ID of the order                    |
-| `session_id` | `int`                                                                                           | `false`  | The Session of the order               |
 | `profile_id` | `int`                                                                                           | `false`  | The Person behind the order            |
 | `entries`    | `Array<{id: String, name: String, description: String, price: int, allergies: Array<Allergy>}>` | `false`  | The menu entries related to this order |
 
@@ -390,7 +389,6 @@ curl --request PUT https://food2gether.com/api/v1/orders/ \
      --header 'Content-Type: application/json' \
      --data @- << EOF
 {
-  "session_id": 688713425,
   "profile_id": 1731095302112,
   "entries": [
     {
@@ -549,7 +547,6 @@ Removes an order by its ID.
         <pre lang="json">{
   "success": true,
   "data": {
-      "session_id": 1,
       "profile_id": 1
   }
 }</pre>
