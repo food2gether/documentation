@@ -262,10 +262,7 @@ Resets a password for an existing user account.
 | `password` | `String` | `true`   | The new password |
 
 ### Response
-| Status Code | Description   | Example Response Body                                                                                                                 |
-|-------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| 200         | Successful    | <pre lang="json">{<br>  "success": true,<br>  "data": null<br>}</pre>                                                                 |
-| 400         | Invalid token | <pre lang="json">{<br>  "success": false,<br>  "error": {<br>    "code": 400,<br>    "message_key": "token.invalid"<br>  }<br>}</pre> |
+
 <table>
   <thead>
     <tr>
