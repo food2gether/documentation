@@ -46,7 +46,7 @@ _None_
   "success": false,
   "error": {
     "code": 409,
-    "message_key": "registration.failed"
+    "detail": "registration.failed"
   }
 }
         </pre>
@@ -113,7 +113,7 @@ _None_
   "success": false,
   "error": {
     "code": 401,
-    "message_key": "authentication.failed"
+    "detail": "authentication.failed"
   }
 }
         </pre>
@@ -172,7 +172,7 @@ _None_
   "success": false,
   "error": {
     "code": 401,
-    "message_key": "authentication.failed"
+    "detail": "authentication.failed"
   }
 }
         </pre>
@@ -230,7 +230,7 @@ _None_
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "account.notfound"
+    "detail": "account.notfound"
   }
 }
         </pre>
@@ -293,7 +293,7 @@ Resets a password for an existing user account.
   "success": false,
   "error": {
     "code": 400,
-    "message_key": "token.invalid"
+    "detail": "token.invalid"
   }
 }
         </pre>
