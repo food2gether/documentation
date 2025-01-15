@@ -66,7 +66,7 @@ When `id` is omitted, a new restaurant is created. In this case all other argume
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "request.missingarguments"
+    "detail": "request.missingarguments"
   }
 }
         </pre>
@@ -81,7 +81,7 @@ When `id` is omitted, a new restaurant is created. In this case all other argume
   "success": false,
   "error": {
     "code": 401,
-    "message_key": "authorization.failed"
+    "detail": "authorization.failed"
   }
 }
         </pre>
@@ -216,7 +216,7 @@ _None_
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "restaurant.notfound"
+    "detail": "restaurant.notfound"
   }
 }
         </pre>
@@ -276,7 +276,7 @@ Deletes a specific restaurant.
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "restaurant.notfound"
+    "detail": "restaurant.notfound"
   }
 }
         </pre>
@@ -340,7 +340,7 @@ Updates the menu of an existing restaurant.
   "success": false,
   "error": {
     "code": 401,
-    "message_key": "authorization.failed"
+    "detail": "authorization.failed"
   }
 }
         </pre>
@@ -355,7 +355,7 @@ Updates the menu of an existing restaurant.
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "menu.notfound"
+    "detail": "menu.notfound"
   }
 }
         </pre>
@@ -444,7 +444,7 @@ _None_
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "restaurant.notfound"
+    "detail": "restaurant.notfound"
   }
 }
         </pre>
