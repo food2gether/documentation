@@ -131,7 +131,7 @@ _None_
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "account.notfound"
+    "detail": "account.notfound"
   }
 }
         </pre>
@@ -209,7 +209,7 @@ The `name` field is ignored when updating a profile.
   "success": false,
   "error": {
     "code": 400,
-    "message_key": "request.missingarguments"
+    "detail": "request.missingarguments"
   }
 }</pre>
       </td>
@@ -222,7 +222,7 @@ The `name` field is ignored when updating a profile.
   "success": false,
   "error": {
     "code": 401,
-    "message_key": "authorization.failed"
+    "detail": "authorization.failed"
   }
 }</pre>
       </td>
@@ -235,7 +235,7 @@ The `name` field is ignored when updating a profile.
   "success": false,
   "error": {
     "code": 403,
-    "message_key": "user.exists"
+    "detail": "user.exists"
   }
 }</pre>
       </td>
@@ -248,7 +248,7 @@ The `name` field is ignored when updating a profile.
   "success": false,
   "error": {
     "code": 409,
-    "message_key": "account.exists"
+    "detail": "account.exists"
   }
 }</pre>
       </td>
@@ -321,7 +321,7 @@ Deletes a profile.
   "success": false,
   "error": {
     "code": 401,
-    "message_key": "authorization.failed"
+    "detail": "authorization.failed"
   }
 }
         </pre>
