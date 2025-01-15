@@ -67,7 +67,7 @@ When `id` is omitted, a new session is created. In this case all other arguments
   "success": false,
   "error": {
     "code": 400,
-    "message_key": "request.invalid"
+    "detail": "request.invalid"
   }
 }
         </pre>
@@ -82,7 +82,7 @@ When `id` is omitted, a new session is created. In this case all other arguments
   "success": false,
   "error": {
     "code": 401,
-    "message_key": "authorization.failed"
+    "detail": "authorization.failed"
   }
 }
         </pre>
@@ -202,7 +202,7 @@ _None_
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "session.not_found"
+    "detail": "session.not_found"
   }
 }
         </pre>
@@ -265,7 +265,7 @@ Removes a session by its ID.
   "success": false,
   "error": {
     "code": 401,
-    "message_key": "authorization.failed"
+    "detail": "authorization.failed"
   }
 }
         </pre>
@@ -280,7 +280,7 @@ Removes a session by its ID.
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "session.not_found"
+    "detail": "session.not_found"
   }
 }
         </pre>
@@ -360,7 +360,7 @@ order with the given ID is updated.
   "success": false,
   "error": {
     "code": 400,
-    "message_key": "request.invalid"
+    "detail": "request.invalid"
   }
 }</pre>
       </td>
@@ -373,7 +373,7 @@ order with the given ID is updated.
   "success": false,
   "error": {
     "code": 401,
-    "message_key": "authorization.failed"
+    "detail": "authorization.failed"
   }
 }</pre>
       </td>
@@ -499,7 +499,7 @@ _None_
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "order.not_found"
+    "detail": "order.not_found"
   }
 }</pre>
       </td>
@@ -560,7 +560,7 @@ Removes an order by its ID.
   "success": false,
   "error": {
     "code": 401,
-    "message_key": "authorization.failed"
+    "detail": "authorization.failed"
   }
 }</pre>
       </td>
@@ -573,7 +573,7 @@ Removes an order by its ID.
   "success": false,
   "error": {
     "code": 404,
-    "message_key": "order.not_found"
+    "detail": "order.not_found"
   }
 }</pre>
       </td>
