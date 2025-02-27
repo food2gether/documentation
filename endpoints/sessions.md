@@ -7,18 +7,17 @@ Creates/Updates a session.
 ### Headers
 | Key             | Description                        |
 |-----------------|------------------------------------|
-| `Authorization` | `Basic <email:password \| base64>` |
 | `Content-Type`  | `application/json`                 |
 
 ### Parameters
 When `id` is omitted, a new session is created. In this case all other arguments are required. When `id` is provided, the session with the given ID is updated.
 
-| Key             | Type   | Required | Description                                    |
-|-----------------|--------|----------|------------------------------------------------|
-| `id`            | `int`  | `false`  | The ID of the session to update                |
-| `restaurant_id` | `int`  | `false`  | The restaurant where the orders will be placed |
-| `organizer_id`  | `int`  | `false`  | The responsible person                         |
-| `deadline`      | `Date` | `false`  | The deadline for the orders                    |
+| Key             | Type       | Required | Description                                    |
+|-----------------|------------|----------|------------------------------------------------|
+| `id`            | `int`      | `false`  | The ID of the session to update                |
+| `restaurantId`  | `int`      | `false`  | The restaurant where the orders will be placed |
+| `organizerId`   | `int`      | `false`  | The responsible person                         |
+| `deadline`      | `DateTime` | `false`  | The deadline for the orders                    |
 
 ### Response
 <table>
@@ -36,9 +35,12 @@ When `id` is omitted, a new session is created. In this case all other arguments
       <td>
         <pre lang="json">
 {
-  "success": true,
+  "status": 200,
   "data": {
-    "id": 1731155346
+    "id": 73683,
+    "restaurantId": 123,
+    "organizerId": 123,
+    "deadline": "2024-10-01T10:00:00"
   }
 }
         </pre>
@@ -50,9 +52,12 @@ When `id` is omitted, a new session is created. In this case all other arguments
       <td>
         <pre lang="json">
 {
-  "success": true,
+  "status": 201,
   "data": {
-    "id": 1731155346
+    "id": 73683,
+    "restaurantId": 123,
+    "organizerId": 123,
+    "deadline": "2024-10-01T10:00:00"
   }
 }
         </pre>
@@ -65,9 +70,9 @@ When `id` is omitted, a new session is created. In this case all other arguments
         <pre lang="json">
 {
   "success": false,
+  "status": 400,
   "error": {
-    "code": 400,
-    "detail": "request.invalid"
+    "message": "request.invalid"
   }
 }
         </pre>
@@ -77,15 +82,6 @@ When `id` is omitted, a new session is created. In this case all other arguments
       <td>401</td>
       <td>Unauthorized</td>
       <td>
-        <pre lang="json">
-{
-  "success": false,
-  "error": {
-    "code": 401,
-    "detail": "authorization.failed"
-  }
-}
-        </pre>
       </td>
     </tr>
   </tbody>
@@ -94,12 +90,11 @@ When `id` is omitted, a new session is created. In this case all other arguments
 ### Example Request
 ```shell
 curl --request PUT https://food2gether.com/api/v1/sessions/ \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
      --header 'Content-Type: application/json' \ 
      --data @- << EOF
 {
-  "restaurant_id": 1,
-  "organizer_id": 1,
+  "restaurantId": 1,
+  "organizerId": 1,
   "deadline": "2024-11-10T00:25:08.337Z"
 }
 EOF
@@ -135,16 +130,17 @@ _None_
         <pre lang="json">
 {
   "success": true,
+  "status": 200,
   "data": [
     {
-      "restaurant_id": 1,
-      "organizer_id": 1,
-      "deadline": "2024-11-10T00:25:08.337Z"
-    },
-    ...
+      "id": 1,
+      "restaurantId": 1,
+      "organizerId": 1,
+      "deadline": "2025-02-27T10:38:16.14005047"
+    }
   ]
 }
-        </pre>
+</pre>
       </td>
     </tr>
   </tbody>
@@ -184,10 +180,12 @@ _None_
         <pre lang="json">
 {
   "success": true,
+  "status": 200,
   "data": {
-    "restaurant_id": 1,
-    "organizer_id": 1,
-    "deadline": "2024-11-10T00:25:08.337Z"
+    "id": 123,
+    "restaurantId": 1,
+    "organizerId": 1,
+    "deadline": "2025-02-27T10:38:43.347245067"
   }
 }
         </pre>
@@ -200,9 +198,9 @@ _None_
         <pre lang="json">
 {
   "success": false,
+  "status": 404,
   "error": {
-    "code": 404,
-    "detail": "session.not_found"
+    "message": "session.not_found"
   }
 }
         </pre>
@@ -221,9 +219,7 @@ curl --request GET https://food2gether.com/api/v1/sessions/688713425/
 Removes a session by its ID.
 
 ### Headers
-| Key             | Description                        |
-|-----------------|------------------------------------|
-| `Authorization` | `Basic <email:password \| base64>` |
+_None_
 
 ### Parameters
 | Key  | Type  | Required | Description    |
@@ -247,10 +243,12 @@ Removes a session by its ID.
         <pre lang="json">
 {
   "success": true,
+  "status": 200,
   "data": {
-    "restaurant_id": 1,
-    "organizer_id": 1,
-    "deadline": "2024-11-10T00:25:08.337Z"
+    "id": 123,
+    "restaurantId": 1,
+    "organizerId": 1,
+    "deadline": "2025-02-27T10:41:28.979825433"
   }
 }
         </pre>
@@ -261,13 +259,6 @@ Removes a session by its ID.
       <td>Unauthorized</td>
       <td>
         <pre lang="json">
-{
-  "success": false,
-  "error": {
-    "code": 401,
-    "detail": "authorization.failed"
-  }
-}
         </pre>
       </td>
     </tr>
@@ -278,9 +269,9 @@ Removes a session by its ID.
         <pre lang="json">
 {
   "success": false,
+  "code": 404,
   "error": {
-    "code": 404,
-    "detail": "session.not_found"
+    "message": "session.not_found"
   }
 }
         </pre>
@@ -291,8 +282,7 @@ Removes a session by its ID.
 
 ### Example Request
 ```shell
-curl --request DELETE https://food2gether.com/api/v1/sessions/688713425/ \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK'
+curl --request DELETE https://food2gether.com/api/v1/sessions/688713425/
 ```
 
 ## PUT `/api/v1/sessions/:id/orders/`
@@ -303,7 +293,6 @@ Creates/Updates an order.
 
 | Key             | Description                        |
 |-----------------|------------------------------------|
-| `Authorization` | `Basic <email:password \| base64>` |
 | `Content-Type`  | `application/json`                 |
 
 ### Parameters
@@ -332,24 +321,48 @@ order with the given ID is updated.
       <td>200</td>
       <td>Updated</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": true,
+  "status": 200,
   "data": {
-    "id": 1731155346
+    "id": 123,
+    "items": [
+      {
+        "id": 1,
+        "menuItemId": 1,
+        "quantity": 10
+      }
+    ],
+    "profileId": 123,
+    "state": "REJECTED"
   }
-}</pre>
+}
+        </pre>
       </td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": true,
+  "status": 201,
   "data": {
-    "id": 1731155346
+    "id": 123,
+    "items": [
+      {
+        "id": 1,
+        "menuItemId": 1,
+        "quantity": 10
+      }
+    ],
+    "profileId": 123,
+    "state": "REJECTED"
   }
-}</pre>
+}
+        </pre>
       </td>
     </tr>
     <tr>
@@ -369,13 +382,7 @@ order with the given ID is updated.
       <td>401</td>
       <td>Unauthorized</td>
       <td>
-        <pre lang="json">{
-  "success": false,
-  "error": {
-    "code": 401,
-    "detail": "authorization.failed"
-  }
-}</pre>
+        <pre lang="json"></pre>
       </td>
     </tr>
   </tbody>
@@ -384,23 +391,18 @@ order with the given ID is updated.
 ### Example Request
 
 ```shell
-curl --request PUT https://food2gether.com/api/v1/orders/ \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
+curl --request PUT https://food2gether.com/api/v1/sessions/123/orders \
      --header 'Content-Type: application/json' \
      --data @- << EOF
 {
-  "profile_id": 1731095302112,
-  "entries": [
+  "id": 1731095302112,
+  "profileId": 123,
+  "state": "REJECTED",
+  "items": [
     {
-      "id": "1",
-      "name": "Springrolles",
-      "description": "Asian fried vegetable rolls",
-      "price": 349,
-      "allergies": [
-        "VEGETARIAN",
-        "VEGAN",
-        "PEANUTS"
-      ]
+      "id": 1,
+      "menuItemId": 1,
+      "quantity": 10
     }
   ]
 }
@@ -436,12 +438,26 @@ _None_
       <td>200</td>
       <td>Found</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": true,
-  "data": {
-      "profile_id": 1
-  }
-}</pre>
+  "status": 200,
+  "data": [
+    {
+      "id": 1,
+      "items": [
+        {
+          "id": 1,
+          "menuItemId": 1,
+          "quantity": 1
+        }
+      ],
+      "profileId": 1,
+      "state": "SUBMITTED"
+    }
+  ]
+}
+        </pre>
       </td>
     </tr>
   </tbody>
@@ -450,7 +466,7 @@ _None_
 ### Example Request
 
 ```shell
-curl --request GET https://food2gether.com/api/v1/orders/
+curl --request GET https://food2gether.com/api/v1/sessions/123/orders/
 ```
 
 ## GET `/api/v1/sessions/:id/orders/:id/`
@@ -482,26 +498,39 @@ _None_
       <td>200</td>
       <td>Found</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": true,
+  "status": 200,
   "data": {
-      "session_id": 1,
-      "profile_id": 1
+    "id": 123,
+    "items": [
+      {
+        "id": 1,
+        "menuItemId": 1,
+        "quantity": 1
+      }
+    ],
+    "profileId": 1,
+    "state": "SUBMITTED"
   }
-}</pre>
+}
+</pre>
       </td>
     </tr>
     <tr>
       <td>404</td>
       <td>Not found</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": false,
+  "status": 404,
   "error": {
-    "code": 404,
-    "detail": "order.not_found"
+    "message": "order.not_found"
   }
-}</pre>
+}
+</pre>
       </td>
     </tr>
   </tbody>
@@ -510,7 +539,7 @@ _None_
 ### Example Request
 
 ```shell
-curl --request GET https://food2gether.com/api/v1/orders/2345345341/
+curl --request GET https://food2gether.com/api/v1/sessions/123/orders/2345345341/
 ```
 
 ## DELETE `/api/v1/sessions/:id/orders/:id/`
@@ -518,10 +547,7 @@ curl --request GET https://food2gether.com/api/v1/orders/2345345341/
 Removes an order by its ID.
 
 ### Headers
-
-| Key             | Description                        |
-|-----------------|------------------------------------|
-| `Authorization` | `Basic <email:password \| base64>` |
+_None_
 
 ### Parameters
 
@@ -544,38 +570,54 @@ Removes an order by its ID.
       <td>200</td>
       <td>Ok</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": true,
+  "status": 200,
   "data": {
-      "profile_id": 1
+    "id": 123,
+    "items": [
+      {
+        "id": 1,
+        "menuItemId": 1,
+        "quantity": 1
+      }
+    ],
+    "profileId": 1,
+    "state": "REJECTED"
   }
-}</pre>
+}
+        </pre>
       </td>
     </tr>
     <tr>
       <td>401</td>
       <td>Unauthorized</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": false,
+  "status": 401,
   "error": {
-    "code": 401,
     "detail": "authorization.failed"
   }
-}</pre>
+}
+</pre>
       </td>
     </tr>
     <tr>
       <td>404</td>
       <td>Not Found</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": false,
+  "status": 404,
   "error": {
-    "code": 404,
     "detail": "order.not_found"
   }
-}</pre>
+}
+</pre>
       </td>
     </tr>
   </tbody>
@@ -584,6 +626,6 @@ Removes an order by its ID.
 ### Example Request
 
 ```shell
-curl --request DELETE https://food2gether.com/api/v1/order/2345345341/ \
+curl --request DELETE https://food2gether.com/api/v1/sessions/1223/orders/2345345341/ \
      --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK'
 ```
