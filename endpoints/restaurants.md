@@ -7,17 +7,16 @@ Creates/Updates a restaurant.
 ### Headers
 | Key             | Description                        |
 |-----------------|------------------------------------|
-| `Authorization` | `Basic <email:password \| base64>` |
 | `Content-Type`  | `application/json`                 |
 
 ### Parameters
 When `id` is omitted, a new restaurant is created. In this case all other arguments are required. When `id` is provided, the restaurant with the given ID is updated.
 
-| Key           | Type                                                         | Required | Description                        |
-|---------------|--------------------------------------------------------------|----------|------------------------------------|
-| `id`          | `int`                                                        | `false`  | The ID of the restaurant to update |
-| `displayname` | `String`                                                     | `false`  | The displayname of the restaurant  |
-| `address`     | `{street: String, number: int, city: String, postcode: int}` | `false`  | The address of the restaurant      |
+| Key           | Type                                                               | Required | Description                        |
+|---------------|--------------------------------------------------------------------|----------|------------------------------------|
+| `id`          | `int`                                                              | `false`  | The ID of the restaurant to update |
+| `displayName` | `String`                                                           | `false`  | The displayname of the restaurant  |
+| `address`     | `{street: String, city: String, postalCode: int, country: String}` | `false`  | The address of the restaurant      |
 
 ### Response
 <table>
@@ -36,8 +35,16 @@ When `id` is omitted, a new restaurant is created. In this case all other argume
         <pre lang="json">
 {
   "success": true,
+  "status": 200,
   "data": {
-    "id": 1731155346
+    "id": 1,
+    "displayName": "Habibna",
+    "address": {
+      "street": "Ahorn Str. 1",
+      "city": "Aachen",
+      "postalCode": "52072",
+      "country": "Germany"
+    }
   }
 }
         </pre>
@@ -50,8 +57,16 @@ When `id` is omitted, a new restaurant is created. In this case all other argume
         <pre lang="json">
 {
   "success": true,
+  "status": 201,
   "data": {
-    "id": 1731155346
+    "id": 1,
+    "displayName": "Mensa Ahorn",
+    "address": {
+      "street": "Ahorn Str. 1",
+      "city": "Aachen",
+      "postalCode": "52072",
+      "country": "Germany"
+    }
   }
 }
         </pre>
@@ -64,10 +79,8 @@ When `id` is omitted, a new restaurant is created. In this case all other argume
         <pre lang="json">
 {
   "success": false,
-  "error": {
-    "code": 404,
-    "detail": "request.missingarguments"
-  }
+  "status": 400,
+  "message": "Restaurant display name and address must not be null"
 }
         </pre>
       </td>
@@ -77,13 +90,6 @@ When `id` is omitted, a new restaurant is created. In this case all other argume
       <td>Unauthorized</td>
       <td>
         <pre lang="json">
-{
-  "success": false,
-  "error": {
-    "code": 401,
-    "detail": "authorization.failed"
-  }
-}
         </pre>
       </td>
     </tr>
@@ -93,19 +99,20 @@ When `id` is omitted, a new restaurant is created. In this case all other argume
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/v1/restaurantes/ \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
-     --header 'Content-Type: application/json' \ 
-     --data @- << EOF
-{
-  "displayname": "Restaurant",
+curl -X 'PUT' \
+  'http://localhost:8080/api/v1/restaurants' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 9007199254740991,
+  "displayName": "string",
   "address": {
-    "street": "Musterstraße", 
-    "number": 42, 
-    "city": "Musterstadt", 
-    "postalcode": 12345
+    "street": "string",
+    "city": "string",
+    "postalCode": "string",
+    "country": "string"
   }
-}
+}'
 EOF
 ```
 
@@ -138,18 +145,18 @@ _None_
         <pre lang="json">
 {
   "success": true,
+  "status": 200,
   "data": [
     {
-      "id": 1731155346,
-      "displayname": "Fat Baby",
+      "id": 1,
+      "displayName": "Habibna",
       "address": {
-        "street": "Musterstr.",
-        "number": 42,
+        "street": "Ahorn Str. 1",
         "city": "Aachen",
-        "postalcode": 52072
+        "postalCode": "52072",
+        "country": "Germany"
       }
-    },
-    ...
+    }
   ]
 }
         </pre>
@@ -160,8 +167,9 @@ _None_
 
 ### Example Request
 ```shell
-curl --request GET https://food2gether.com/api/v1/restaurantes?search=Fat%20Baby \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK'
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/restaurants' \
+  -H 'accept: */*'
 ```
 
 ## GET `/api/v1/restaurantes/:id/`
@@ -193,14 +201,15 @@ _None_
         <pre lang="json">
 {
   "success": true,
+  "status": 200,
   "data": {
-    "id": 1731155346,
-    "displayname": "Fat Baby",
+    "id": 1,
+    "displayName": "Habibna",
     "address": {
-      "street": "Musterstr.",
-      "number": 42,
+      "street": "Ahorn Str. 1",
       "city": "Aachen",
-      "postalcode": 52072
+      "postalCode": "52072",
+      "country": "Germany"
     }
   }
 }
@@ -214,10 +223,8 @@ _None_
         <pre lang="json">
 {
   "success": false,
-  "error": {
-    "code": 404,
-    "detail": "restaurant.notfound"
-  }
+  "status": 404,
+  "message": "Restaurant not found"
 }
         </pre>
       </td>
@@ -227,8 +234,9 @@ _None_
 
 ### Example Request
 ```shell
-curl --request GET https://food2gether.com/api/v1/restaurantes/1731155346 \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK'
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/restaurants/2' \
+  -H 'accept: */*'
 ```
 
 ## DELETE `/api/v1/restaurantes/:id/`
@@ -236,9 +244,7 @@ curl --request GET https://food2gether.com/api/v1/restaurantes/1731155346 \
 Deletes a specific restaurant.
 
 ### Headers
-| Key             | Description                        |
-|-----------------|------------------------------------|
-| `Authorization` | `Basic <email:password \| base64>` |
+_None_
 
 ### Parameters
 | Key  | Type  | Required | Description              |
@@ -262,7 +268,17 @@ Deletes a specific restaurant.
         <pre lang="json">
 {
   "success": true,
-  "data": null
+  "status": 200,
+  "data": {
+    "id": 1,
+    "displayName": "Habibna",
+    "address": {
+      "street": "Ahorn Str. 1",
+      "city": "Aachen",
+      "postalCode": "52072",
+      "country": "Germany"
+    }
+  }
 }
         </pre>
       </td>
@@ -274,10 +290,8 @@ Deletes a specific restaurant.
         <pre lang="json">
 {
   "success": false,
-  "error": {
-    "code": 404,
-    "detail": "restaurant.notfound"
-  }
+  "status": 404,
+  "message": "Restaurant not found"
 }
         </pre>
       </td>
@@ -287,8 +301,9 @@ Deletes a specific restaurant.
 
 ### Example Request
 ```shell
-curl --request DELETE https://food2gether.com/api/v1/restaurantes/1731155346 \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK'
+curl -X 'DELETE' \
+  'http://localhost:8080/api/v1/restaurants/5' \
+  -H 'accept: */*'
 ```
 
 <!-- Menues -->
@@ -300,14 +315,13 @@ Updates the menu of an existing restaurant.
 ### Headers
 | Key             | Description                        |
 |-----------------|------------------------------------|
-| `Authorization` | `Basic <email:password \| base64>` |
 | `Content-Type`  | `application/json`                 |
 
 ### Parameters
-| Key       | Type                                                                                            | Required | Description                                 |
-|-----------|-------------------------------------------------------------------------------------------------|----------|---------------------------------------------|
-| `id`      | `int`                                                                                           | `true`   | The ID of the restaurant                    |
-| `entries` | `Array<{id: String, name: String, description: String, price: int, allergies: Array<Allergy>}>` | `false`  | The menu entries related to this restaurant |
+| Key  | Type                                                                 | Required | Description                                 |
+|------|----------------------------------------------------------------------|----------|---------------------------------------------|
+| `id` | `int`                                                                | `true`   | The ID of the restaurant                    |
+| `[]` | `Array<{id: String, name: String, description: String, price: int}>` | `true`   | The menu entries related to this restaurant |
 
 ### Response
 <table>
@@ -326,7 +340,16 @@ Updates the menu of an existing restaurant.
         <pre lang="json">
 {
   "success": true,
-  "data": null
+  "status": 200,
+  "data": [
+    {
+      "id": 3,
+      "restaurantId": 1,
+      "name": "Schawama",
+      "description": "Is legga",
+      "price": 500
+    }
+  ]
 }
         </pre>
       </td>
@@ -336,13 +359,6 @@ Updates the menu of an existing restaurant.
       <td>Unauthorized</td>
       <td>
         <pre lang="json">
-{
-  "success": false,
-  "error": {
-    "code": 401,
-    "detail": "authorization.failed"
-  }
-}
         </pre>
       </td>
     </tr>
@@ -353,10 +369,8 @@ Updates the menu of an existing restaurant.
         <pre lang="json">
 {
   "success": false,
-  "error": {
-    "code": 404,
-    "detail": "menu.notfound"
-  }
+  "status": 404,
+  "message": "Restaurant not found"
 }
         </pre>
       </td>
@@ -366,26 +380,17 @@ Updates the menu of an existing restaurant.
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/v1/restaurantes/1731155346/menu \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
-     --header 'Content-Type: application/json' \
-     --data @- << EOF
-{
-  "entries": [
-    {
-      "id": "1",
-      "name": "Springrolles",
-      "description": "Asian fried vegetable rolls",
-      "price": 349,
-      "allergies": [
-        "VEGETARIAN",
-        "VEGAN",
-        "PEANUTS"
-      ]
-    }
-  ]
-}
-EOF
+curl -X 'PUT' \
+  'http://localhost:8080/api/v1/restaurants/1/menu' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '[
+  {
+    "name": "Schawama",
+    "description": "Is legga",
+    "price": 500
+  }
+]'
 ```
 
 ## GET `/api/v1/restaurantes/:id/menu/`
@@ -417,19 +422,15 @@ _None_
         <pre lang="json">
 {
   "success": true,
+  "status": 200,
   "data": [
     {
-      "id": "1",
-      "name": "Springrolles",
-      "description": "Asian fried vegetable rolls",
-      "price": 349,
-      "allergies": [
-        "VEGETARIAN",
-        "VEGAN",
-        "PEANUTS"
-      ]
-    },
-    ...
+      "id": 3,
+      "restaurantId": 1,
+      "name": "Schawama",
+      "description": "Is legga",
+      "price": 500
+    }
   ]
 }
         </pre>
@@ -442,10 +443,8 @@ _None_
         <pre lang="json">
 {
   "success": false,
-  "error": {
-    "code": 404,
-    "detail": "restaurant.notfound"
-  }
+  "status": 404,
+  "message": "Restaurant not found"
 }
         </pre>
       </td>
@@ -456,6 +455,7 @@ _None_
 
 ### Example Request
 ```shell
-curl --request GET https://food2gether.com/api/v1/restaurantes/1731155346/menu \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK'
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/restaurants/1/menu' \
+  -H 'accept: */*'
 ```
