@@ -29,36 +29,14 @@ _None_
         <pre lang="json">
 {
   "success": true,
+  "status": 200,
   "data": [
     {
-      "id": 1731095302112,
-      "name": "max_mustermann",
-      "displayname": "Max Mustermann",
-      "contact": [
-        {
-          "displayname": "E-Mail",
-          "value": "max.mustermann@example.com"
-        },
-        {
-          "displayname": "Phone",
-          "value": "+49 1568 483234"
-        }
-      ]
-    },
-    {
-      "id": 1099871596193,
-      "name": "phro",
-      "displayname": "Dr. Philipp Rohde",
-      "contact": [
-        {
-          "displayname": "E-Mail",
-          "value": "rhode@fh-aachen.com"
-        },
-        {
-          "displayname": "Discord",
-          "value": "phro#3865"
-        }
-      ]
+      "id": 1,
+      "name": "marvin",
+      "displayName": "MarfienGamerXX",
+      "profilePictureUrl": "https://fuck-u.com",
+      "primaryEmail": "mail@123.xom"
     }
   ]
 }
@@ -71,20 +49,22 @@ _None_
 
 ### Example Request
 ```shell
-curl --request GET https://food2gether.com/api/v1/profiles/
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/profiles' \
+  -H 'accept: */*'
 ```
 
 ## GET `/api/v1/profiles/:id`
 
-Returns the profile with the given ID/username.
+Returns the profile with the given ID.
 
 ### Headers
 _None_
 
 ### Parameters
-| Key  | Type           | Required | Description                  |
-|------|----------------|----------|------------------------------|
-| `id` | `int`/`String` | `true`   | The ID of the profile to get |
+| Key  | Type   | Required | Description                  |
+|------|--------|----------|------------------------------|
+| `id` | `int`  | `true`   | The ID of the profile to get |
 
 ### Response
 <table>
@@ -103,20 +83,13 @@ _None_
         <pre lang="json">
 {
   "success": true,
+  "status": 200,
   "data": {
-    "id": 1731095302112,
-    "name": "max_mustermann",
-    "displayname": "Max Mustermann",
-    "contact": [
-      {
-        "displayname": "E-Mail",
-        "value": "max.mustermann@example.com"
-      },
-      {
-        "displayname": "Phone",
-        "value": "+49 1568 483234"
-      }
-    ]
+    "id": 1,
+    "name": "marvin",
+    "displayName": "MarfienGamerXX",
+    "profilePictureUrl": "https://fuck-u.com",
+    "primaryEmail": "mail@123.xom"
   }
 }
         </pre>
@@ -129,10 +102,8 @@ _None_
         <pre lang="json">
 {
   "success": false,
-  "error": {
-    "code": 404,
-    "detail": "account.notfound"
-  }
+  "status": 404,
+  "message": "Profile not found"
 }
         </pre>
       </td>
@@ -143,29 +114,31 @@ _None_
 
 ### Example Request
 ```shell
-curl --request GET https://food2gether.com/api/v1/accounts/1731095302112
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/profiles/2' \
+  -H 'accept: */*'
 ```
 
-## PUT `/api/v1/accounts/`
+## PUT `/api/v1/profiles/`
 
 Creates/Updates a profile.
 
 ### Headers
 | Key             | Description                        |
 |-----------------|------------------------------------|
-| `Authorization` | `Basic <email:password \| base64>` |
 | `Content-Type`  | `application/json`                 |
 
 ### Parameters
 When `id` is omitted, a new profile is created. In this case all other arguments are required. When `id` is provided, the profile with the given ID is updated. \
 The `name` field is ignored when updating a profile.
 
-| Key           | Type                                          | Required | Description                                |
-|---------------|-----------------------------------------------|----------|--------------------------------------------|
-| `id`          | `int`/`String`                                | `false`  | The ID/username of the profile to update   |
-| `name`        | `String`                                      | `false`  | A unique username                          |
-| `displayname` | `String`                                      | `false`  | The display name of the user               |
-| `contact`     | `Array<{displayname: String, value: String}>` | `false`  | An array of contact information            |
+| Key                 | Type     | Required | Description                                                           |
+|---------------------|----------|----------|-----------------------------------------------------------------------|
+| `id`                | `int`    | `false`  | The ID of the profile to update                                       |
+| `name`              | `String` | `false`  | A unique username                                                     |
+| `displayName`       | `String` | `false`  | The display name of the user. If omitted, name is used                |
+| `profilePictureUrl` | `String` | `false`  | The profile pricuture url. Optional in all cases                      |
+| `primaryEmail`      | `String` | `false`  | Primary email. If `X-User-Email` header is set its value will be used |
 
 ### Response
 <table>
@@ -181,76 +154,65 @@ The `name` field is ignored when updating a profile.
       <td>200</td>
       <td>Updated</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": true,
+  "status": 200,
   "data": {
-    "id": 1731095302112
+    "id": 1,
+    "name": "marvin",
+    "displayName": "MarfienGamerXX",
+    "profilePictureUrl": "https://fuck-u.com",
+    "primaryEmail": "mail@123.xom"
   }
-}</pre>
+}
+</pre>
       </td>
     </tr>
     <tr>
       <td>201</td>
       <td>Created</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": true,
+  "status": 201,
   "data": {
-    "id": 1731095302112
+    "id": 1,
+    "name": "marvin",
+    "displayName": "MarfienGamerXX",
+    "profilePictureUrl": "https://fuck-u.com",
+    "primaryEmail": "mail@123.xom"
   }
-}</pre>
+}
+</pre>
       </td>
     </tr>
     <tr>
       <td>400</td>
       <td>Missing arguments</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": false,
-  "error": {
-    "code": 400,
-    "detail": "request.missingarguments"
-  }
-}</pre>
+  "status": 400,
+  "message": "Profile name must not be null or empty"
+}
+</pre>
       </td>
     </tr>
     <tr>
       <td>401</td>
       <td>Unauthorized</td>
       <td>
-        <pre lang="json">{
-  "success": false,
-  "error": {
-    "code": 401,
-    "detail": "authorization.failed"
-  }
-}</pre>
+        <pre lang="json"></pre>
       </td>
     </tr>
     <tr>
       <td>403</td>
       <td>Username already exists</td>
       <td>
-        <pre lang="json">{
-  "success": false,
-  "error": {
-    "code": 403,
-    "detail": "user.exists"
-  }
-}</pre>
-      </td>
-    </tr>
-    <tr>
-      <td>409</td>
-      <td>Profile already associated with account</td>
-      <td>
-        <pre lang="json">{
-  "success": false,
-  "error": {
-    "code": 409,
-    "detail": "account.exists"
-  }
-}</pre>
+        _Not implemented yet_
       </td>
     </tr>
   </tbody>
@@ -259,36 +221,29 @@ The `name` field is ignored when updating a profile.
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/v1/accounts/ \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
-     --header 'Content-Type: application/json' \
-     --data @- << EOF
-{
-  "name": "max_mustermann",
-  "displayname": "Max Mustermann",
-  "contact": [
-    {
-      "displayname": "MS Teams",
-      "value": "mamu"
-    }
-  ]
-}
-EOF
+curl -X 'PUT' \
+  'http://localhost:8080/api/v1/profiles' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "Marvin",
+  "displayName": "MarfienGamerXX",
+  "profilePictureUrl": "https://fuck-u.com",
+  "primaryEmail": "string"
+}'
 ```
 
-## DELETE `/api/v1/accounts/:id/`
+## DELETE `/api/v1/profiles/:id/`
 
 Deletes a profile.
 
 ### Headers
-| Key             | Description                        |
-|-----------------|------------------------------------|
-| `Authorization` | `Basic <email:password \| base64>` |
+_None_
 
 ### Parameters
-| Key           | Type                                          | Required | Description                              |
-|---------------|-----------------------------------------------|----------|------------------------------------------|
-| `id`          | `int`/`String`                                | `true`   | The ID/username of the profile to update |
+| Key  | Type  | Required | Description                     |
+|------|-------|----------|---------------------------------|
+| `id` | `int` | `true`   | The ID of the profile to update |
 
 ### Response
 <table>
@@ -307,7 +262,27 @@ Deletes a profile.
         <pre lang="json">
 {
   "success": true,
-  "data": null
+  "status": 200,
+  "data": {
+    "id": 1,
+    "name": "marvin",
+    "displayName": "MarfienGamerXX",
+    "profilePictureUrl": "https://fuck-u.com",
+    "primaryEmail": "mail@123.xom"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "status": 404,
+  "message": "Profile not found"
 }
         </pre>
       </td>
@@ -317,13 +292,6 @@ Deletes a profile.
       <td>Unauthorized</td>
       <td>
         <pre lang="json">
-{
-  "success": false,
-  "error": {
-    "code": 401,
-    "detail": "authorization.failed"
-  }
-}
         </pre>
       </td>
     </tr>
@@ -333,6 +301,163 @@ Deletes a profile.
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/v1/accounts/ \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK' \
+curl -X 'DELETE' \
+  'http://localhost:8080/api/v1/profiles/1' \
+  -H 'accept: */*'
 ```
+
+## PUT `/api/v1/profiles/:id/contact-information`
+
+Updates contact info of a profile.
+
+### Headers
+_None_
+
+### Parameters
+| Key  | Type                                          | Required | Description                                        |
+|------|-----------------------------------------------|----------|----------------------------------------------------|
+| `id` | `int`                                         | `true`   | The ID of the profile to update                    |
+| `[]` | `Array<id: int, type: String, value: String>` | `true`   | The updated contact information. Id can be omitted |
+
+### Response
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Updated</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "status": 200,
+  "data": {
+    "id": 1,
+    "name": "marvin",
+    "displayName": "MarfienGamerXX",
+    "profilePictureUrl": "https://fuck-u.com",
+    "primaryEmail": "mail@123.xom"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "status": 404,
+  "message": "Profile not found"
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>401</td>
+      <td>Unauthorized</td>
+      <td>
+        <pre lang="json">
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+### Example Request
+```shell
+curl -X 'DELETE' \
+  'http://localhost:8080/api/v1/profiles/1' \
+  -H 'accept: */*'
+```
+
+## GET `/api/v1/profiles/:id/contact-information`
+
+Get all contact information about a profile.
+
+### Headers
+_None_
+
+### Parameters
+| Key           | Type  | Required | Description                     |
+|---------------|-------|----------|---------------------------------|
+| `id`          | `int` | `true`   | The ID of the profile to update |
+
+### Response
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Ok</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "status": 200,
+  "data": [
+    {
+      "id": 5,
+      "profileId": 1,
+      "type": "E-Mail",
+      "value": "test@123.com"
+    },
+    {
+      "id": 6,
+      "profileId": 1,
+      "type": "Tel",
+      "value": "123"
+    }
+  ]
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "status": 404,
+  "message": "Profile not found"
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>401</td>
+      <td>Unauthorized</td>
+      <td>
+        <pre lang="json">
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+### Example Request
+```shell
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/profiles/1/contact-information' \
+  -H 'accept: */*'
+```
+
+
