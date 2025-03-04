@@ -35,12 +35,13 @@ When `id` is omitted, a new session is created. In this case all other arguments
       <td>
         <pre lang="json">
 {
+  "success": true,
   "status": 200,
   "data": {
-    "id": 73683,
-    "restaurantId": 123,
-    "organizerId": 123,
-    "deadline": "2024-10-01T10:00:00"
+    "id": 6,
+    "restaurantId": 1,
+    "organizerId": 1,
+    "deadline": "2025-03-10T12:15:50"
   }
 }
         </pre>
@@ -52,12 +53,13 @@ When `id` is omitted, a new session is created. In this case all other arguments
       <td>
         <pre lang="json">
 {
+  "success": true,
   "status": 201,
   "data": {
-    "id": 73683,
-    "restaurantId": 123,
-    "organizerId": 123,
-    "deadline": "2024-10-01T10:00:00"
+    "id": 6,
+    "restaurantId": 1,
+    "organizerId": 1,
+    "deadline": "2025-03-10T12:15:50"
   }
 }
         </pre>
@@ -70,10 +72,8 @@ When `id` is omitted, a new session is created. In this case all other arguments
         <pre lang="json">
 {
   "success": false,
-  "status": 400,
-  "error": {
-    "message": "request.invalid"
-  }
+  "status": 404,
+  "message": "Session with id 999 does not exist"
 }
         </pre>
       </td>
@@ -89,15 +89,16 @@ When `id` is omitted, a new session is created. In this case all other arguments
 
 ### Example Request
 ```shell
-curl --request PUT https://food2gether.com/api/v1/sessions/ \
-     --header 'Content-Type: application/json' \ 
-     --data @- << EOF
-{
+curl -X 'PUT' \
+  'http://localhost:8080/api/v1/sessions' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+"id": 999,
   "restaurantId": 1,
   "organizerId": 1,
-  "deadline": "2024-11-10T00:25:08.337Z"
-}
-EOF
+  "deadline": "2025-03-10T12:15:50"
+}'
 ```
 
 ## GET `/api/v1/sessions/`
@@ -108,10 +109,10 @@ Gets all sessions with optional filters.
 _None_
 
 ### Parameters
-| Key             | Type      | Required | Description                      |
-|-----------------|-----------|----------|----------------------------------|
-| `restaurant_id` | `int`     | `false`  | Filter for a specific restaurant |
-| `orderable`     | `boolean` | `false`  | Filter for running sessions      |
+| Key             | Type      | Required | Description                                           |
+|-----------------|-----------|----------|-------------------------------------------------------|
+| `restaurant_id` | `int`     | `false`  | Filter for a specific restaurant                      |
+| `orderable`     | `boolean` | `false`  | Filter for sessions with their deadline in the future |
 
 ### Response
 <table>
@@ -133,10 +134,16 @@ _None_
   "status": 200,
   "data": [
     {
-      "id": 1,
+      "id": 5,
       "restaurantId": 1,
       "organizerId": 1,
-      "deadline": "2025-02-27T10:38:16.14005047"
+      "deadline": "2025-03-10T12:15:50"
+    },
+    {
+      "id": 6,
+      "restaurantId": 1,
+      "organizerId": 1,
+      "deadline": "2025-03-10T12:15:50"
     }
   ]
 }
@@ -148,7 +155,9 @@ _None_
 
 ### Example Request
 ```shell
-curl --request GET https://food2gether.com/api/v1/sessions/
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/sessions?orderable=true&restaurant_id=1' \
+  -H 'accept: */*'
 ```
 
 ## GET `/api/v1/sessions/:id/`
@@ -182,10 +191,10 @@ _None_
   "success": true,
   "status": 200,
   "data": {
-    "id": 123,
+    "id": 4,
     "restaurantId": 1,
     "organizerId": 1,
-    "deadline": "2025-02-27T10:38:43.347245067"
+    "deadline": "2025-03-10T12:15:50"
   }
 }
         </pre>
@@ -199,9 +208,7 @@ _None_
 {
   "success": false,
   "status": 404,
-  "error": {
-    "message": "session.not_found"
-  }
+  "message": "Session with id 4 does not exist"
 }
         </pre>
       </td>
@@ -211,7 +218,9 @@ _None_
 
 ### Example Request
 ```shell
-curl --request GET https://food2gether.com/api/v1/sessions/688713425/
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/sessions/4' \
+  -H 'accept: */*'
 ```
 
 ## DELETE `/api/v1/sessions/:id/`
@@ -245,10 +254,10 @@ _None_
   "success": true,
   "status": 200,
   "data": {
-    "id": 123,
+    "id": 4,
     "restaurantId": 1,
     "organizerId": 1,
-    "deadline": "2025-02-27T10:41:28.979825433"
+    "deadline": "2025-03-10T12:15:50"
   }
 }
         </pre>
@@ -269,10 +278,8 @@ _None_
         <pre lang="json">
 {
   "success": false,
-  "code": 404,
-  "error": {
-    "message": "session.not_found"
-  }
+  "status": 404,
+  "message": "Session with id 4 does not exist"
 }
         </pre>
       </td>
@@ -326,7 +333,7 @@ order with the given ID is updated.
   "success": true,
   "status": 200,
   "data": {
-    "id": 123,
+    "id": 1,
     "items": [
       {
         "id": 1,
@@ -334,8 +341,8 @@ order with the given ID is updated.
         "quantity": 10
       }
     ],
-    "profileId": 123,
-    "state": "REJECTED"
+    "profileId": 1,
+    "state": "OPEN"
   }
 }
         </pre>
@@ -350,7 +357,7 @@ order with the given ID is updated.
   "success": true,
   "status": 201,
   "data": {
-    "id": 123,
+    "id": 1,
     "items": [
       {
         "id": 1,
@@ -358,24 +365,39 @@ order with the given ID is updated.
         "quantity": 10
       }
     ],
-    "profileId": 123,
-    "state": "REJECTED"
+    "profileId": 1,
+    "state": "OPEN"
   }
 }
         </pre>
       </td>
     </tr>
     <tr>
-      <td>400</td>
-      <td>Bad Request</td>
+      <td>404</td>
+      <td>Not found</td>
       <td>
-        <pre lang="json">{
+        <pre lang="json">
+{
   "success": false,
-  "error": {
-    "code": 400,
-    "detail": "request.invalid"
-  }
-}</pre>
+  "status": 404,
+  "message": "Order with id 123 does not exist"
+}
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>400</td>
+      <td>Bad request</td>
+      <td>
+        <pre lang="json">
+{
+  "objectName": "DTO",
+  "attributeName": "state",
+  "line": 9,
+  "column": 12,
+  "value": "NONE"
+}
+</pre>
       </td>
     </tr>
     <tr>
@@ -391,22 +413,20 @@ order with the given ID is updated.
 ### Example Request
 
 ```shell
-curl --request PUT https://food2gether.com/api/v1/sessions/123/orders \
-     --header 'Content-Type: application/json' \
-     --data @- << EOF
-{
-  "id": 1731095302112,
-  "profileId": 123,
-  "state": "REJECTED",
+curl -X 'PUT' \
+  'http://localhost:8080/api/v1/sessions/5/orders' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
   "items": [
     {
-      "id": 1,
       "menuItemId": 1,
       "quantity": 10
     }
-  ]
-}
-EOF
+  ],
+  "profileId": 1,
+  "state": "OPEN"
+}'
 ```
 
 ## GET `/api/v1/sessions/:id/orders/`
@@ -421,6 +441,7 @@ _None_
 
 | Key          | Type      | Required | Description                   |
 |--------------|-----------|----------|-------------------------------|
+| `id`         | `int`     | `true`   | The session id                |
 | `profile_id` | `boolean` | `false`  | Filter for a specific profile |
 
 ### Response
@@ -436,7 +457,7 @@ _None_
   <tbody>
     <tr>
       <td>200</td>
-      <td>Found</td>
+      <td>Ok</td>
       <td>
         <pre lang="json">
 {
@@ -449,13 +470,26 @@ _None_
         {
           "id": 1,
           "menuItemId": 1,
-          "quantity": 1
+          "quantity": 10
         }
       ],
       "profileId": 1,
-      "state": "SUBMITTED"
+      "state": "OPEN"
     }
   ]
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>Not Found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "status": 404,
+  "message": "Session with id 21 not found"
 }
         </pre>
       </td>
@@ -466,10 +500,12 @@ _None_
 ### Example Request
 
 ```shell
-curl --request GET https://food2gether.com/api/v1/sessions/123/orders/
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/sessions/21/orders' \
+  -H 'accept: */*'
 ```
 
-## GET `/api/v1/sessions/:id/orders/:id/`
+## GET `/api/v1/sessions/:sessionId/orders/:id/`
 
 Gets an order by its ID.
 
@@ -479,9 +515,10 @@ _None_
 
 ### Parameters
 
-| Key  | Type  | Required | Description  |
-|------|-------|----------|--------------|
-| `id` | `int` | `true`   | The order id |
+| Key         | Type  | Required | Description    |
+|-------------|-------|----------|----------------|
+| `sessionId` | `int` | `true`   | The session id |
+| `id`        | `int` | `true`   | The order id   |
 
 ### Response
 
@@ -503,16 +540,16 @@ _None_
   "success": true,
   "status": 200,
   "data": {
-    "id": 123,
+    "id": 1,
     "items": [
       {
         "id": 1,
         "menuItemId": 1,
-        "quantity": 1
+        "quantity": 10
       }
     ],
     "profileId": 1,
-    "state": "SUBMITTED"
+    "state": "OPEN"
   }
 }
 </pre>
@@ -526,9 +563,7 @@ _None_
 {
   "success": false,
   "status": 404,
-  "error": {
-    "message": "order.not_found"
-  }
+  "message": "Order with id 12 does not exist"
 }
 </pre>
       </td>
@@ -539,10 +574,12 @@ _None_
 ### Example Request
 
 ```shell
-curl --request GET https://food2gether.com/api/v1/sessions/123/orders/2345345341/
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/sessions/1/orders/12' \
+  -H 'accept: */*'
 ```
 
-## DELETE `/api/v1/sessions/:id/orders/:id/`
+## DELETE `/api/v1/sessions/:sessionId/orders/:id/`
 
 Removes an order by its ID.
 
@@ -551,9 +588,10 @@ _None_
 
 ### Parameters
 
-| Key  | Type  | Required | Description  |
-|------|-------|----------|--------------|
-| `id` | `int` | `true`   | The order id |
+| Key         | Type  | Required | Description    |
+|-------------|-------|----------|----------------|
+| `sessionId` | `int` | `true`   | The session id |
+| `id`        | `int` | `true`   | The order id   |
 
 ### Response
 
@@ -575,32 +613,30 @@ _None_
   "success": true,
   "status": 200,
   "data": {
-    "id": 123,
+    "id": 3,
     "items": [
       {
-        "id": 1,
+        "id": 3,
         "menuItemId": 1,
-        "quantity": 1
+        "quantity": 10
       }
     ],
     "profileId": 1,
-    "state": "REJECTED"
+    "state": "OPEN"
   }
 }
         </pre>
       </td>
     </tr>
     <tr>
-      <td>401</td>
-      <td>Unauthorized</td>
+      <td>403</td>
+      <td>Forbidden</td>
       <td>
         <pre lang="json">
 {
   "success": false,
-  "status": 401,
-  "error": {
-    "detail": "authorization.failed"
-  }
+  "status": 403,
+  "message": "Only the user who owns the order can delete it"
 }
 </pre>
       </td>
@@ -613,9 +649,7 @@ _None_
 {
   "success": false,
   "status": 404,
-  "error": {
-    "detail": "order.not_found"
-  }
+  "message": "Order with id 2 does not exist"
 }
 </pre>
       </td>
@@ -626,6 +660,7 @@ _None_
 ### Example Request
 
 ```shell
-curl --request DELETE https://food2gether.com/api/v1/sessions/1223/orders/2345345341/ \
-     --header 'Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQK'
+curl -X 'DELETE' \
+  'http://localhost:8080/api/v1/sessions/2/orders/3' \
+  -H 'accept: */*'
 ```
