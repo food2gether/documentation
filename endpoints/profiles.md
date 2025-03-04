@@ -119,6 +119,70 @@ curl -X 'GET' \
   -H 'accept: */*'
 ```
 
+## GET `/api/v1/profiles/me`
+
+Returns the own profile with by the `X-User-Email` header. \
+The header will be injected by the oauth2 proxy.
+
+### Headers
+_None_
+
+### Parameters
+_None_
+
+### Response
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Description</th>
+      <th>Example Response Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Account found</td>
+      <td>
+        <pre lang="json">
+{
+  "success": true,
+  "status": 200,
+  "data": {
+    "id": 1,
+    "name": "marvin",
+    "displayName": "MarfienGamerXX",
+    "profilePictureUrl": "https://fuck-u.com",
+    "primaryEmail": "mail@123.xom"
+  }
+}
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>400</td>
+      <td>Bad Request</td>
+      <td>
+        <pre lang="json">
+{
+  "success": false,
+  "status": 404,
+  "message": "Required Header is missing: X-User-Email"
+}
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+### Example Request
+```shell
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/profiles/me' \
+  -H 'accept: */*'
+```
+
 ## PUT `/api/v1/profiles/`
 
 Creates/Updates a profile.
